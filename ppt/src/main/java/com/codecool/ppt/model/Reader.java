@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "clients")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Client extends Person{
+public class Reader extends Person{
     private String email;
     private Boolean isPremium;
 }
