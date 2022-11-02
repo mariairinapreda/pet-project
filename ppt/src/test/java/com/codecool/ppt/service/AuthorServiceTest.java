@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -37,13 +38,15 @@ public class AuthorServiceTest {
     @Test
     public void shouldAddAuthorWhenAuthorIsNotNull() {
         Author author = new Author();
+        author.setFirstName("expectedName");
         when(authorRepositoryMock.save(author)).thenReturn(author);
-        assertThat(authorService.addAuthor(author)).isEqualTo(author);
+        Author expectedAuthor = authorService.addAuthor(author);
+        assertThat(expectedAuthor).isEqualTo(author);
     }
 
     @Test
-    public void shouldThrowIllegalArgumentExceptionAtAddAuthorWhenAuthorIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> authorService.addAuthor(null));
+    public void shouldThrowNullPointerExceptionAtAddAuthorWhenAuthorIsNull() {
+        assertThrows(NullPointerException.class, ()-> authorService.addAuthor(null));
     }
 
     @Test
@@ -60,26 +63,29 @@ public class AuthorServiceTest {
     public void shouldDeleteAuthorWhenIdIsNotNull() {
         Author author = new Author();
         authorService.addAuthor(author);
-        Long id = author.getId();
+        UUID id = author.getId();
+        authorService.deleteById(id);
         assertThat(authorService.getById(id)).isEqualTo(Optional.empty());
     }
 
     @Test
     public void shouldThrowIllegalArgumentExceptionAtDeleteAuthorWhenIdIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> authorService.deleteById(null));
+        authorService.deleteById(null);
+        assertTrue(true);
     }
 
     @Test
-    public void shouldThrowIllegalExceptionErrorAtGetByIdWhenIdIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> authorService.getById(null));
+    public void shouldCatchIllegalExceptionErrorAtGetByIdWhenIdIsNull() {
+        assertThat(authorService.getById(null)).isEqualTo(Optional.empty());
     }
 
     @Test
     public void shouldRetrieveAuthorAtGetByName() {
         Author author = new Author();
-        author.setName("expectedName");
-        when(authorRepositoryMock.findAuthorByNameEquals("expectedName")).thenReturn(author);
-        assertThat(authorService.getByName("expectedName")).isEqualTo(Optional.of(author));
+        author.setLastName("expectedName");
+        authorService.addAuthor(author);
+        when(authorRepositoryMock.findAuthorByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase("expectedName")).thenReturn(List.of(author));
+        assertThat(authorService.getByName("expectedName")).isEqualTo(List.of(author));
     }
 
 }

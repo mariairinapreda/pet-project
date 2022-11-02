@@ -5,8 +5,9 @@ import com.codecool.ppt.model.Book;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
+import java.util.UUID;
 
-public interface AuthorRepository extends MongoRepository<Author, Long> {
-    Author findAuthorByNameEquals(String name);
+public interface AuthorRepository extends MongoRepository<Author, UUID> {
+    List<Author> findAuthorByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(String name);
 
 }
