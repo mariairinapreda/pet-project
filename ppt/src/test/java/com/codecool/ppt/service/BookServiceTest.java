@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -49,7 +50,7 @@ public class BookServiceTest {
     public void shouldRetrieveTheBookWithGivenId() {
         Book book = new Book();
         bookService.addBook(book);
-        Long expectedId = book.getId();
+        UUID expectedId = book.getId();
         when(bookRepositoryMock.findById(expectedId)).thenReturn(Optional.of(book));
         assertThat(bookService.getById(expectedId).get()).isEqualTo(book);
     }
@@ -59,7 +60,7 @@ public class BookServiceTest {
         Book book = new Book();
         Author authorMock = Mockito.mock(Author.class);
         assertNotNull(authorMock);
-        authorMock.setName("expectedName");
+        authorMock.setFirstName("expectedName");
         book.setAuthor(authorMock);
         bookService.addBook(book);
         when(bookRepositoryMock.findBooksByAuthor(authorMock)).thenReturn(List.of(book));
@@ -79,7 +80,7 @@ public class BookServiceTest {
     public void shouldRemoveBookWithGivenId() {
         Book book = new Book();
         bookService.addBook(book);
-        Long id = book.getId();
+        UUID id = book.getId();
         bookService.deleteBook(id);
         assertThat(bookService.getById(id)).isEqualTo(Optional.empty());
     }

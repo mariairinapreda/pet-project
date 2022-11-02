@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class BookService {
@@ -21,7 +22,7 @@ public class BookService {
 
     public Book addBook(Book book) {
         if (book == null) throw new IllegalArgumentException();
-        book.setId(543543L);
+        book.setId(UUID.randomUUID());
         return repository.save(book);
     }
 
@@ -29,7 +30,7 @@ public class BookService {
         return repository.findAll();
     }
 
-    public Optional<Book> getById(Long id) {
+    public Optional<Book> getById(UUID id) {
         try {
             return repository.findById(id);
         } catch (IllegalArgumentException e) {
@@ -51,7 +52,7 @@ public class BookService {
         return repository.findBooksByNameContainingIgnoreCase(name);
     }
 
-    public void deleteBook(Long id) {
+    public void deleteBook(UUID id) {
         try {
             repository.deleteById(id);
         } catch (IllegalArgumentException e) {
