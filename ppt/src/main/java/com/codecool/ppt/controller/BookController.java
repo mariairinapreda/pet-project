@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin(originPatterns = "http://localhost:3000")
 @RequestMapping("/books")
 public class BookController {
     private final BookService bookService;
