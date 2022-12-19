@@ -19,17 +19,29 @@ public class AuthorService {
     }
 
     public Author addAuthor(Author author) {
-        if(author==null) throw new NullPointerException("Author is null");
-        author.setId(UUID.randomUUID());
-        return repository.save(author);
+        if (author == null) throw new NullPointerException("Author is null");
+        if (!findIfAuthorAlreadySaved(author.getFirstName(), author.getLastName())) {
+            author.setId(UUID.randomUUID());
+            return repository.save(author);
+        }
+        return null;
+    }
+
+    public Author getAuthorWithName(String firstNmae, String lastName) {
+        return repository.findAuthorByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCase(firstNmae, lastName);
+    }
+
+    public Boolean findIfAuthorAlreadySaved(String firstName, String lastName) {
+        return repository.existsAuthorByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCase(firstName, lastName);
     }
 
     public Optional<Author> getById(UUID id) {
-        try{
+        try {
             return repository.findById(id);
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
-        }return Optional.empty();
+        }
+        return Optional.empty();
     }
 
     public List<Author> getByName(String name) {
@@ -41,9 +53,9 @@ public class AuthorService {
     }
 
     public void deleteById(UUID id) {
-        try{
+        try {
             repository.deleteById(id);
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
     }

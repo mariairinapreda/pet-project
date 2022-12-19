@@ -3,7 +3,6 @@ package com.codecool.ppt.service;
 import com.codecool.ppt.model.Author;
 import com.codecool.ppt.repository.AuthorRepository;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -12,13 +11,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
-
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 
 public class AuthorServiceTest {
     @Mock
@@ -46,7 +42,7 @@ public class AuthorServiceTest {
 
     @Test
     public void shouldThrowNullPointerExceptionAtAddAuthorWhenAuthorIsNull() {
-        assertThrows(NullPointerException.class, ()-> authorService.addAuthor(null));
+        assertThrows(NullPointerException.class, () -> authorService.addAuthor(null));
     }
 
     @Test
