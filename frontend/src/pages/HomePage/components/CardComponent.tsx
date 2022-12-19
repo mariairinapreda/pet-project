@@ -1,34 +1,59 @@
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import CardActions from "@mui/material/CardActions";
-import Button from "@mui/material/Button";
-import React, {FC} from "react";
 
 
-export const  CardComponent : FC<{props:[{id:"", name:"", author:"", description: "", imageUrl:""}]}> = (books) => {
-   return (<div>{books.props.map(b =>  <Card id={b.id} sx={{ maxWidth: 345 }}>
-            <CardMedia
-                component="img"
-                height="140"
-                image={b.imageUrl}
-                alt="book cover"
-            />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                    Title: {b.name},Author:  {b.author}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    Summary:
-                     {b.description}
+import {FC} from "react";
+import {Box, Button, ButtonGroup, Img, Link} from "@chakra-ui/react";
+import {Book} from "../../../types/Book";
 
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <Button size="small">Share</Button>
-                <Button size="small">Learn More</Button>
-            </CardActions>
-        </Card>)},
-   </div>)
-};
+
+const DownloadTxtFile  = (book: Book) => {
+    const texts = [ book.name, book.author, book.description, book.text];
+    const file = new Blob(texts, {type: 'text/plain'});
+    const element = document.createElement("a");
+    element.href = URL.createObjectURL(file);
+    element.download = book.name  + ".txt";
+    document.body.appendChild(element);
+    element.click();
+}
+
+const ChangeColor = (event: React.MouseEvent<HTMLSpanElement>) => {
+    const box: HTMLSpanElement = event.currentTarget;
+    box.style.backgroundColor="#2C7A7B";
+    box.style.textDecoration="none";
+
+}
+const ChangeColorBack = (event: React.MouseEvent<HTMLSpanElement>) => {
+    const box: HTMLSpanElement = event.currentTarget;
+    box.style.backgroundColor="#319795\n";
+}
+
+
+
+export const  CardComponent : FC<{props:[Book]}> = (books) => {
+    return (<div style={{display: "flex", width:"100%", height:"100%", flexWrap: "wrap"}} className={"flex space-x-9 "} > {books.props.map(book =>
+        <Box key={book.name+book.imageUrl.length} style={{display: "row", flex: " 1 0 21%"}} maxW='sm'  overflow='initial'>
+            <Img className={"rounded-lg"} src={book.imageUrl} width={300} height={300}  />
+            {/*<AppPoint props={book.text}/>*/}
+            <Box p='6'>
+                <ButtonGroup size='xs' display='flex' style={{display: "inline"}} width={50} alignItems='baseline'>
+                   <Button as={"samp"} borderRadius='full' px='1' fontSize={"md"} colorScheme='teal'><Link  color={"white"}  textDecoration={"none"} href={`/books/${book.name}`}  onMouseLeave={(e)=> ChangeColorBack(e)} onMouseEnter={(e)=>{ChangeColor(e)}}  borderRadius='full' px='1' backgroundColor={"teal.500"}>Read
+                   </Link></Button>
+                    <Button as={"samp"} borderRadius='full' px='1' fontSize={"md"} colorScheme='teal' id="downloadBtn" value="download" onClick={()=>DownloadTxtFile(book)} >Download</Button>
+                </ButtonGroup>
+
+                <Box
+                    mt='1'
+                    fontWeight='semibold'
+                    as='h4'
+                    lineHeight='tight'
+                    noOfLines={1}
+                    fontSize={"2xl"}
+                >
+                    {book.name}
+                </Box>
+            </Box>
+        </Box>
+        )}
+        </div>
+    )
+
+}
