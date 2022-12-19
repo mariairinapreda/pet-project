@@ -1,0 +1,9 @@
+#signin{
+    display: flex;
+    border-width: 3px;
+    border-color: teal;
+    margin: 100px 450px 150px ;
+}
+#forms{
+    margin-bottom: -10px;
+}
