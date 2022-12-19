@@ -1,15 +1,7 @@
 import {atom} from "jotai";
+import {Book, getEmptyBook} from "../../../types/Book";
 
 
 
-export const DataAtom=atom<[{id:"", name:"", author:"", description: "", imageUrl:""}]>([
-    {
-                 id:"",
-                 name:"",
-                 author: "",
-        description: "",
-        imageUrl:""
-             }
-
-]);
+export const DataAtom=atom<[Book]>([getEmptyBook()]);
 
