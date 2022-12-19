@@ -20,6 +20,7 @@ public class Book {
     @Id
     private UUID id;
     private String name;
+    private String text;
     private Author author;
     private String description;
     private String imageUrl;
