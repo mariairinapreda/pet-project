@@ -1,42 +1,20 @@
 import "./Header.css"
-import {AppBar, Toolbar, IconButton, Typography, colors, Stack, Link} from "@mui/material"
-import AutoStoriesTwoToneIcon from "@mui/icons-material/AutoStoriesTwoTone";
-import { createTheme } from '@mui/material/styles';
-import FaceIcon from '@mui/icons-material/Face';
-import SearchIcon from '@mui/icons-material/Search';
+import {Img, Link } from "@chakra-ui/react";
+import Forms from "./Forms";
+
+
 
 export const Header = () => {
-    const theme = createTheme({
-        palette: {
-            secondary: {
-                main: '#512da8'
-            },
-        },
-    });
-  return(
-      <div>
-          <AppBar id={"menu"} sx={{backgroundColor:theme.palette.secondary.main}} position="static">
-              <Toolbar variant="dense">
-                  <IconButton edge="start" size={"large"} color={"inherit"}  aria-label="menu" sx={{ mr: 3 }}>
-                      <AutoStoriesTwoToneIcon></AutoStoriesTwoToneIcon>
-                  </IconButton>
-                  <Typography variant="h6" color="inherit" component="div" sx={{flexGrow:1}}>
-                      Friends with Benefits
-                  </Typography>
-                  <Stack direction={"row"} spacing={5} alignSelf={"center"} sx={{flexGrow:10}} >
-                      <Link underline={"none"} href={"/"} color={"inherit"} component={"h3"}>Home</Link>
-                      <Link underline={"none"} href={"/books"} color={"inherit"} component={"h3"}>Books</Link>
-                      <Link underline={"none"} href={"/authors"} color={"inherit"} component={"h3"}>Authors</Link>
-                      <Link underline={"none"} href={"/login"} color={"inherit"} component={"h3"}>Login</Link>
-                      <Link underline={"none"} href={"/about"} color={"inherit"} component={"h3"}>About</Link>
-                      <IconButton edge="end" size={"small"} color={"inherit"}  aria-label="menu" >
-                          <SearchIcon></SearchIcon>
-                      </IconButton>
-                  </Stack>
-                  <IconButton edge="end" size={"large"} color={"inherit"}  aria-label="menu" sx={{ ml: 3 }}>
-                      <FaceIcon></FaceIcon>
-                  </IconButton>
-              </Toolbar>
-          </AppBar>
-      </div>);
+  return(<nav  className={" md:items-center z-[-1] md:z-auto md:static absolute static sticky\t md:flex md:justify-between  rounded-br-[50px] rounded-bl-[50px] p-1 bg-gradient-to-r from-orange-400 to-rose-400 shadow"}>
+    <Img className={"border-color-orange-400 rounded-full " }  id={"picture"} src={"https://user-images.githubusercontent.com/89586309/200301912-d3b3742d-3098-451b-950c-770334781987.png"} alt={"logo"}/>
+<Forms/>
+    <div  className={"space-x-5 mr-5 text-white\t "} >
+        <Link className={"text-[30px] md:my-0"} textDecoration={"initial"}   href={"/register"}>Register</Link>
+        <Link className={"text-[30px] md:my-0"} textDecoration={"initial"}   href={"/signin"}>Sign in</Link>
+      <Link className={"text-[30px] md:my-0"}  href={"/"}  textDecoration={"initial"} >Home</Link>
+       <Link className={"text-[30px] md:my-0"} textDecoration={"initial"} href={"/books"}>Books</Link>
+    <Link className={"text-[30px] md:my-0"} textDecoration={"initial"}   href={"/authors"}>Authors</Link>
+
+    </div>
+  </nav>)
 }
