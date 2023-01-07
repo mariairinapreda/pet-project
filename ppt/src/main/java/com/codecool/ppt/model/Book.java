@@ -6,11 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.io.File;
 import java.util.UUID;
 
-@Document(collection = "books")
+@Document
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -18,10 +21,10 @@ import java.util.UUID;
 public class Book {
 
     @Id
-    private UUID id;
+    private String id;
     private String name;
-    private String text;
     private Author author;
     private String description;
     private String imageUrl;
+    private String objectUrl;
 }

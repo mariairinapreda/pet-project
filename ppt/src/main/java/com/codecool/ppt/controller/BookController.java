@@ -3,43 +3,49 @@ package com.codecool.ppt.controller;
 import com.codecool.ppt.model.Author;
 import com.codecool.ppt.model.Book;
 import com.codecool.ppt.model.BookTemplate;
+import com.codecool.ppt.model.Content;
+import com.codecool.ppt.model.ContentTemplate;
 import com.codecool.ppt.service.AuthorService;
 import com.codecool.ppt.service.BookService;
-import org.apache.tika.exception.TikaException;
+import com.codecool.ppt.service.ContentService;
+import com.mongodb.client.gridfs.model.GridFSFile;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.xml.sax.SAXException;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin(originPatterns = "http://localhost:3000")
 @RequestMapping("/api/books")
+@AllArgsConstructor
 public class BookController {
+    private final ContentService contentService;
     private final BookService bookService;
     private final AuthorService authorService;
 
-    @Autowired
-    public BookController(BookService bookService, AuthorService authorService) {
-        this.bookService = bookService;
-        this.authorService = authorService;
-    }
 
     @GetMapping
     public List<Book> getAll() {
         return bookService.getAllBooks();
     }
 
+    @PostMapping("/file/{name}")
+    public void addFile(@RequestParam("file.pdf") MultipartFile multipartFile, @PathVariable("name") String name) throws IOException {
+        contentService.addContent(multipartFile, name);
+    }
+
     @PostMapping
-    public void add(@RequestBody BookTemplate bookTemplate) throws TikaException, IOException, SAXException {
+    public void add(@RequestBody BookTemplate bookTemplate){
         Author author;
         if (authorService.findIfAuthorAlreadySaved(bookTemplate.getAuthor(), bookTemplate.getAuthor())) {
             author = authorService.getAuthorWithName(bookTemplate.getAuthor(), bookTemplate.getAuthor());
@@ -49,14 +55,25 @@ public class BookController {
             author.setLastName(bookTemplate.getAuthor());
             authorService.addAuthor(author);
         }
-        Book book = bookService.createBookByBookTemplate(bookTemplate, author);
-        System.out.println(book.getName());
-        bookService.addBook(book);
+
+
+        try {
+          Book  book = bookService.createBookByBookTemplate(bookTemplate, author);
+            bookService.addBook(book);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
-    @GetMapping("/{id}")
-    public Book getBook(@PathVariable("id") UUID id) {
-        return bookService.getById(id).get();
+    @GetMapping("/{name}")
+    public byte[] getContentBook(@PathVariable("name") String name) {
+        try {
+            byte[] file=contentService.getContent(name);
+           return file;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
