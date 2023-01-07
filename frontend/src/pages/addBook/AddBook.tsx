@@ -1,41 +1,39 @@
-import React, {FC, ReactElement, useState} from "react";
+import React, {useState} from "react";
 import {Box, Button, FormControl, FormHelperText, Input} from "@chakra-ui/react";
 import "./addBook.css"
 import {infoBookAtom} from "./infoBookAtom";
 import {Book} from "../../types/Book";
-import {PrimitiveAtom} from "jotai";
+import {PrimitiveAtom, useAtom} from "jotai";
 import axios from "axios";
-import { Worker } from '@react-pdf-viewer/core';
-import { Viewer } from '@react-pdf-viewer/core';
 
-// Import the styles
-import '@react-pdf-viewer/core/lib/styles/index.css';
-
-
-const Appearance : FC<string | Uint8Array> = (url: string | Uint8Array) : ReactElement=>{
-    if(url==="")return (<div></div>)
-return (<Worker workerUrl="https://unpkg.com/pdfjs-dist@3.1.81/build/pdf.worker.min.js">
-    <Viewer fileUrl={url} />;
-</Worker>)
-
-}
+const formData=new FormData();
+let name="";
 const HandleSendData = (data: PrimitiveAtom<Book>) => {
-    if (data.read.length > 0) {
+        axios.create(({
+            headers: {
+                "Content-type": "application/json"
+            }
+        }))
         axios.post('http://localhost:8080/api/books', data);
-        console.log("a trecut de post");
-    }
+        axios.create(({
+            headers: {
+                "Content-type": "multipart/form-data"
+            }
+        }))
+        axios.post(`http://localhost:8080/api/books/file/${name}`, formData);
+
 }
 
 
 
 const AddBook = () => {
     const [file, setFile] = useState(infoBookAtom);
-    const [url, setUrl] = useState("");
     return (<Box id={"addBook"} className={""}>
             Add book
             <FormControl>
                 <Input type='name' name={"name"} className={"text-black"}
                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                           name=event.target.value;
                            setFile(prev => ({...prev, [event.target.name]: event.target.value}));
                        }} focusBorderColor={"none"} placeholder={"title"}/>
                 <FormHelperText>Type the title</FormHelperText>
@@ -54,15 +52,11 @@ const AddBook = () => {
                 <FormHelperText>Type the image url</FormHelperText>
                 <Input type='file' name={"text"}
                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                           event?.target?.files?.item(0)?.text().then(contents => {
                                const objectURL = window.URL.createObjectURL(event?.target?.files?.item(0)!);
-                               setUrl(objectURL);
-                               setFile(prev => ({
-                                       ...prev, [event.target.name]: contents
-                                   })
-                               )
-                           });
-
+                               formData.append("file.pdf", event?.target?.files?.item(0)!);
+                                setFile(prevState => ({
+                                    ...prevState, "objectUrl" : objectURL
+                                }))
                        }
                        }
                 />
@@ -70,7 +64,6 @@ const AddBook = () => {
                 <Button type={"submit"} onClick={() => HandleSendData(file)}
                         style={{backgroundColor: "lightgreen"}}>Add</Button>
             </FormControl>
-           <div>{Appearance(url)}</div>
         </Box>
     )
 }
