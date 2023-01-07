@@ -2,20 +2,21 @@ package com.codecool.ppt.controller;
 
 import com.codecool.ppt.model.Author;
 import com.codecool.ppt.service.AuthorService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("authors")
+@RequestMapping("api/authors")
+@AllArgsConstructor
 public class AuthorController {
     private final AuthorService authorService;
 
-    @Autowired
-    public AuthorController(AuthorService authorService) {
-        this.authorService = authorService;
-    }
 
     @GetMapping
     public List<Author> getAll() {

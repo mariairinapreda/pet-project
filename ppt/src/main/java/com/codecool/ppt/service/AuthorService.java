@@ -2,26 +2,22 @@ package com.codecool.ppt.service;
 
 import com.codecool.ppt.model.Author;
 import com.codecool.ppt.repository.AuthorRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class AuthorService {
     private final AuthorRepository repository;
 
-    @Autowired
-    public AuthorService(AuthorRepository repository) {
-        this.repository = repository;
-    }
 
     public Author addAuthor(Author author) {
         if (author == null) throw new NullPointerException("Author is null");
         if (!findIfAuthorAlreadySaved(author.getFirstName(), author.getLastName())) {
-            author.setId(UUID.randomUUID());
             return repository.save(author);
         }
         return null;
@@ -35,7 +31,7 @@ public class AuthorService {
         return repository.existsAuthorByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCase(firstName, lastName);
     }
 
-    public Optional<Author> getById(UUID id) {
+    public Optional<Author> getById(String id) {
         try {
             return repository.findById(id);
         } catch (IllegalArgumentException e) {
@@ -52,7 +48,7 @@ public class AuthorService {
         return repository.findAll();
     }
 
-    public void deleteById(UUID id) {
+    public void deleteById(String id) {
         try {
             repository.deleteById(id);
         } catch (IllegalArgumentException e) {
