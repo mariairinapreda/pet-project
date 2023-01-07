@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -11,8 +14,8 @@ import lombok.Setter;
 @Setter
 public class BookTemplate {
     private String name;
-    private String text;
     private String author;
     private String description;
     private String imageUrl;
+    private String objectUrl;
 }
