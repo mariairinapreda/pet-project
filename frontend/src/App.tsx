@@ -8,6 +8,7 @@ import SignIn from "./pages/SignIn/SignIn";
 import Register from "./pages/Register/Register";
 import {Books} from "./pages/Books/Books";
 import AddBook from "./pages/addBook/AddBook";
+import ReadBookPage from "./pages/readBook/ReadBookPage";
 
 
 class App extends React.Component {
@@ -20,6 +21,7 @@ class App extends React.Component {
             <Routes>
                 <Route path={"/"} element={<HomePage/>} />
                 <Route  path={"/books"} element={<Books/>}/>
+                <Route  path={"/books/:name"} element={<ReadBookPage/>}/>
                 <Route  path={"/authors"} />
                 <Route path={"/books/add"} element={<AddBook/>} />
                 <Route  path={"/authors/add"} />
