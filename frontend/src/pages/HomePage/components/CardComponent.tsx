@@ -1,8 +1,7 @@
-
-
 import {FC} from "react";
 import {Box, Button, ButtonGroup, Img, Link} from "@chakra-ui/react";
 import {Book} from "../../../types/Book";
+import {RenderableBook} from "../../../types/RenderableBook";
 
 
 const DownloadTxtFile  = (book: Book) => {
@@ -10,7 +9,7 @@ const DownloadTxtFile  = (book: Book) => {
     const file = new Blob(texts, {type: 'text/plain'});
     const element = document.createElement("a");
     element.href = URL.createObjectURL(file);
-    element.download = book.name  + ".txt";
+    element.download = book.name  + ".pdf";
     document.body.appendChild(element);
     element.click();
 }
@@ -28,11 +27,10 @@ const ChangeColorBack = (event: React.MouseEvent<HTMLSpanElement>) => {
 
 
 
-export const  CardComponent : FC<{props:[Book]}> = (books) => {
+export const  CardComponent : FC<{props:[RenderableBook]}> = (books) => {
     return (<div style={{display: "flex", width:"100%", height:"100%", flexWrap: "wrap"}} className={"flex space-x-9 "} > {books.props.map(book =>
-        <Box key={book.name+book.imageUrl.length} style={{display: "row", flex: " 1 0 21%"}} maxW='sm'  overflow='initial'>
+        <Box key={book.id} style={{display: "row", flex: " 1 0 21%"}} maxW='sm'  overflow='initial'>
             <Img className={"rounded-lg"} src={book.imageUrl} width={300} height={300}  />
-            {/*<AppPoint props={book.text}/>*/}
             <Box p='6'>
                 <ButtonGroup size='xs' display='flex' style={{display: "inline"}} width={50} alignItems='baseline'>
                    <Button as={"samp"} borderRadius='full' px='1' fontSize={"md"} colorScheme='teal'><Link  color={"white"}  textDecoration={"none"} href={`/books/${book.name}`}  onMouseLeave={(e)=> ChangeColorBack(e)} onMouseEnter={(e)=>{ChangeColor(e)}}  borderRadius='full' px='1' backgroundColor={"teal.500"}>Read
