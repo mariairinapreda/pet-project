@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {useAtom} from "jotai";
 import {DataAtom} from "../HomePage/components/bookData";
 import axios from "axios";

@@ -1,7 +1,7 @@
 import {atom} from "jotai";
-import {Book, getEmptyBook} from "../../../types/Book";
+import {getEmptyFile, RenderableBook} from "../../../types/RenderableBook";
 
 
 
-export const DataAtom=atom<[Book]>([getEmptyBook()]);
+export const DataAtom=atom<[RenderableBook]>([getEmptyFile()]);
 
