@@ -3,7 +3,8 @@ export type Book ={
     author:string,
     description: string,
     imageUrl:string,
-    text:string
+    text:any,
+    objectUrl: string
 }
 
 export function getEmptyBook(): Book {
@@ -12,6 +13,7 @@ export function getEmptyBook(): Book {
         author:"",
         description: "",
         imageUrl:"",
-        text: ""
+        text: null,
+        objectUrl: ""
     }
 }
