@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Setter
 @Getter
-@Document(collection = "clients")
+@Document
 @AllArgsConstructor
 @NoArgsConstructor
 public class Reader extends Person{

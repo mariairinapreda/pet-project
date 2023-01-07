@@ -11,7 +11,7 @@ import java.util.UUID;
 @AllArgsConstructor
 abstract class Person {
     @Id
-    protected UUID id;
+    protected String id;
     protected String firstName;
     protected String lastName;
 
