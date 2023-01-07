@@ -1,0 +1,16 @@
+#pdf{
+    justify-self: flex-start;
+    justify-content: flex-start;
+   width: 600px;
+    height: 600px;
+    position: center;
+    margin-left: 550px;
+}
+#left{
+    margin-left: 400px;
+    margin-top: 350px;
+}
+#right{
+    display: inline;
+
+}
