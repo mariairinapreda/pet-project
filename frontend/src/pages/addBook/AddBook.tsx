@@ -50,13 +50,13 @@ const AddBook = () => {
                     setFile(prev => ({...prev, [event.target.name]: event.target.value}));
                 }} className={"text-black"} focusBorderColor={"none"} placeholder={"imageUrl"}/>
                 <FormHelperText>Type the image url</FormHelperText>
+                <Input type='numberOfPages' name={"numberOfPages"} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setFile(prev => ({...prev, [event.target.name]: event.target.value}));
+                }} className={"text-black"} focusBorderColor={"none"} placeholder={"number of pages"}/>
+                <FormHelperText>Type the number of pages</FormHelperText>
                 <Input type='file' name={"text"}
                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                               const objectURL = window.URL.createObjectURL(event?.target?.files?.item(0)!);
                                formData.append("file.pdf", event?.target?.files?.item(0)!);
-                                setFile(prevState => ({
-                                    ...prevState, "objectUrl" : objectURL
-                                }))
                        }
                        }
                 />
