@@ -1,16 +1,37 @@
-#pdf{
-    justify-self: flex-start;
-    justify-content: flex-start;
-   width: 600px;
-    height: 600px;
-    position: center;
-    margin-left: 550px;
+body{
 }
-#left{
-    margin-left: 400px;
-    margin-top: 350px;
+
+#pdf{
+    z-index: 100;
+    position: absolute;
+    top: 10%;
+   width: 800px;
+    height: 800px;
+    margin-left: 500px;
+}
+#left, #right {
+    color: brown;
+    cursor: pointer;
+    z-index: 100;
+    position: absolute;
+    top: 35%;
+    width: auto;
+    padding: 1rem;
+    margin-top: -3rem;
+    font-size: 40px;
+    font-weight: bold;
+    border-radius: 0px 5px 5px 0px;
+
+}
+
+canvas{
+    border-radius: 25px;
 }
 #right{
-    display: inline;
+    right: -50px;
+    border-radius: 5px 0px 0px 5px;
+}
+#left{
+    left: -170px;
 
 }
