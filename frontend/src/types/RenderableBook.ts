@@ -4,7 +4,7 @@ export type RenderableBook ={
     description: string,
     imageUrl:string,
     text:any,
-    objectUrl: string,
+    numberOfPages: number,
     id: string
 }
 
@@ -15,7 +15,7 @@ export function getEmptyFile(): RenderableBook{
         description: "",
         imageUrl:"",
         text: null,
-        objectUrl: "",
+        numberOfPages: 0,
         id: ""
     }
 
