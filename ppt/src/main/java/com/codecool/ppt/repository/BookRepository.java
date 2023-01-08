@@ -10,7 +10,7 @@ import java.util.UUID;
 @Repository
 public interface BookRepository extends MongoRepository<Book, String> {
     List<Book> findBooksByAuthor(Author author);
-
+    Book findBookByNameEquals(String name);
     boolean existsBookByNameEquals(String name);
 
     List<Book> findBooksByNameContainingIgnoreCase(String title);

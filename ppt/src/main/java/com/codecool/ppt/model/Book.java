@@ -26,5 +26,6 @@ public class Book {
     private Author author;
     private String description;
     private String imageUrl;
-    private String objectUrl;
+    private int numberOfPages;
+
 }

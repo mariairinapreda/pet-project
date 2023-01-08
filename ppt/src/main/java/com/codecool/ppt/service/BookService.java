@@ -16,7 +16,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class BookService {
     private final BookRepository repository;
-
+private final AuthorService authorService;
 
     public Book addBook(Book book) {
         if (book == null) throw new IllegalArgumentException();
@@ -37,12 +37,36 @@ public class BookService {
         return Optional.empty();
     }
 
+    public void insertBook(BookTemplate bookTemplate){
+        Author author;
+        if (authorService.findIfAuthorAlreadySaved(bookTemplate.getAuthor(), bookTemplate.getAuthor())) {
+            author = authorService.getAuthorWithName(bookTemplate.getAuthor(), bookTemplate.getAuthor());
+        } else {
+            author = new Author();
+            author.setFirstName(bookTemplate.getAuthor());
+            author.setLastName(bookTemplate.getAuthor());
+            authorService.addAuthor(author);
+        }
+
+
+        try {
+            Book  book = createBookByBookTemplate(bookTemplate, author);
+            addBook(book);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+    public int getNumberOfPages(String name){
+        return repository.findBookByNameEquals(name).getNumberOfPages();
+    }
+
     public Book createBookByBookTemplate(BookTemplate bookTemplate, Author author) throws IOException {
         Book book = new Book();
         book.setName(bookTemplate.getName());
         book.setAuthor(author);
         book.setDescription(bookTemplate.getDescription());
-        book.setObjectUrl(bookTemplate.getObjectUrl());
+        book.setNumberOfPages(bookTemplate.getNumberOfPages());
         book.setImageUrl(bookTemplate.getImageUrl());
         return book;
     }

@@ -17,5 +17,5 @@ public class BookTemplate {
     private String author;
     private String description;
     private String imageUrl;
-    private String objectUrl;
+    private int numberOfPages;
 }
