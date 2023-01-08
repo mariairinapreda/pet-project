@@ -4,7 +4,7 @@ export type Book ={
     description: string,
     imageUrl:string,
     text:any,
-    objectUrl: string
+    numberOfPages: number
 }
 
 export function getEmptyBook(): Book {
@@ -14,6 +14,6 @@ export function getEmptyBook(): Book {
         description: "",
         imageUrl:"",
         text: null,
-        objectUrl: ""
+        numberOfPages: 0
     }
 }
