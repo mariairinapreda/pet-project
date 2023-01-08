@@ -19,11 +19,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Author {
-    @Id
-    private String id;
-    private String firstName;
-    private String lastName;
+public class Author extends Person{
     private List<Book> books = new ArrayList<>();
 
 }
