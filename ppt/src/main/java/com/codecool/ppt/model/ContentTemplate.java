@@ -13,7 +13,7 @@ import java.io.File;
 @Setter
 public class ContentTemplate {
 
-    private String id;
     private String name;
-    private File multipartFile;
+    private int numberOfPages;
+    private byte[] multipartFile;
 }
