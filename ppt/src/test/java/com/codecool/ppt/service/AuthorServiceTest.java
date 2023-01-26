@@ -59,7 +59,7 @@ public class AuthorServiceTest {
     public void shouldDeleteAuthorWhenIdIsNotNull() {
         Author author = new Author();
         authorService.addAuthor(author);
-        UUID id = author.getId();
+        String id = author.getId();
         authorService.deleteById(id);
         assertThat(authorService.getById(id)).isEqualTo(Optional.empty());
     }
