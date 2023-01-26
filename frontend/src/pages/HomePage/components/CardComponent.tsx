@@ -1,14 +1,21 @@
-import {FC} from "react";
+import React, {FC, useState} from "react";
 import {Box, Button, ButtonGroup, Img, Link} from "@chakra-ui/react";
 import {Book} from "../../../types/Book";
 import {RenderableBook} from "../../../types/RenderableBook";
+import axios from "axios";
+import {getEmptyContent} from "../../../types/Content";
 
 
-const DownloadTxtFile  = (book: Book) => {
-    const texts = [ book.name, book.author, book.description, book.text];
-    const file = new Blob(texts, {type: 'text/plain'});
+const DownloadTxtFile : (book: Book) => void = (book:Book) => {
+    const [book1, setBook1]=useState(getEmptyContent);
+    axios.get(`http://localhost:8080/api/content/${book.name}`).then(res =>setBook1(res.data))
+    const b64toBlob = require('b64-to-blob');
+
+    const contentType = 'application/pdf';
+
+    const blob = b64toBlob(book1, contentType);
     const element = document.createElement("a");
-    element.href = URL.createObjectURL(file);
+    element.href = URL.createObjectURL(blob);
     element.download = book.name  + ".pdf";
     document.body.appendChild(element);
     element.click();
