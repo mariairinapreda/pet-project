@@ -92,5 +92,9 @@ private final AuthorService authorService;
             e.printStackTrace();
         }
     }
+    public List<Book> getBooksFromSearch(String search){
+        String custom= "%"+search+"%";
+        return repository.findBooksBySearch(custom);
+    }
 
 }
