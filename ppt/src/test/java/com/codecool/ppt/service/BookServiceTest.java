@@ -2,6 +2,7 @@ package com.codecool.ppt.service;
 
 import com.codecool.ppt.model.Author;
 import com.codecool.ppt.model.Book;
+import com.codecool.ppt.repository.AuthorRepository;
 import com.codecool.ppt.repository.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -23,8 +24,12 @@ public class BookServiceTest {
     @Mock
     BookRepository bookRepositoryMock = Mockito.mock(BookRepository.class);
 
+    @Mock
+    AuthorService authorRepository=Mockito.mock(AuthorService.class);
+
     @InjectMocks
-    BookService bookService = new BookService(bookRepositoryMock);
+    BookService bookService = new BookService(bookRepositoryMock, authorRepository);
+
 
 
     @Test
@@ -50,7 +55,7 @@ public class BookServiceTest {
     public void shouldRetrieveTheBookWithGivenId() {
         Book book = new Book();
         bookService.addBook(book);
-        UUID expectedId = book.getId();
+        String expectedId = book.getId();
         when(bookRepositoryMock.findById(expectedId)).thenReturn(Optional.of(book));
         assertThat(bookService.getById(expectedId).get()).isEqualTo(book);
     }
@@ -80,7 +85,7 @@ public class BookServiceTest {
     public void shouldRemoveBookWithGivenId() {
         Book book = new Book();
         bookService.addBook(book);
-        UUID id = book.getId();
+        String id = book.getId();
         bookService.deleteBook(id);
         assertThat(bookService.getById(id)).isEqualTo(Optional.empty());
     }
