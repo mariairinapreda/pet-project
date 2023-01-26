@@ -9,6 +9,7 @@ import Register from "./pages/Register/Register";
 import {Books} from "./pages/Books/Books";
 import AddBook from "./pages/addBook/AddBook";
 import ReadBookPage from "./pages/readBook/ReadBookPage";
+import RequiredAuth from "./pages/RequiredAuth";
 
 
 class App extends React.Component {
@@ -19,14 +20,23 @@ class App extends React.Component {
                 <Header/>
             </div>
             <Routes>
+                {/*public routes*/}
                 <Route path={"/"} element={<HomePage/>} />
+                <Route  path={"/signin"} element={<SignIn/>} />
+                <Route  path="/register" element={<Register/>} />
                 <Route  path={"/books"} element={<Books/>}/>
+
+                {/*secured routes*/}
+                <Route element={<RequiredAuth allowedRole={"USER"}/>}>
                 <Route  path={"/books/:name"} element={<ReadBookPage/>}/>
+                </Route>
+
+
+                <Route element={<RequiredAuth allowedRole={"ADMIN"}/>} >
                 <Route  path={"/authors"} />
                 <Route path={"/books/add"} element={<AddBook/>} />
                 <Route  path={"/authors/add"} />
-                <Route  path={"/signin"} element={<SignIn/>} />
-                <Route  path="/register" element={<Register/>} />
+                </Route>
             </Routes>
             <Footer/>
         </Router>
