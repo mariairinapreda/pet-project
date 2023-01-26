@@ -1,10 +1,65 @@
-#signin{
+#signin {
+    display: flex;
+    margin: 150px 750px 80px 720px;
+}
+#border{
+    border-radius: 12%;
+    margin-top: 10px;
+    margin-right: 600px;
+    margin-left: 600px;
+    justify-self: auto;
+    align-self: auto;
+    align-items: center;
+    justify-content: center;
     display: flex;
     border-width: 3px;
     border-color: teal;
-    margin: 100px 450px 150px ;
-
 }
 #forms{
     margin-bottom: -10px;
+}
+
+.instructions {
+    font-size: 0.75rem;
+    border-radius: 0.5rem;
+    background: #000;
+    color: #fff;
+    padding: 0.25rem;
+    position: relative;
+    bottom: -10px;
+}
+
+.instructions > svg {
+    margin-right: 0.25rem;
+}
+
+.offscreen {
+    position: absolute;
+    left: -9999px;
+}
+
+.hide {
+    display: none;
+}
+
+.valid {
+    color: limegreen;
+    margin-left: 0.25rem;
+}
+
+.invalid {
+    color: red;
+    margin-left: 0.25rem;
+}
+
+.errmsg {
+    background-color: lightpink;
+    color: firebrick;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.line {
+    display: inline-block;
 }
