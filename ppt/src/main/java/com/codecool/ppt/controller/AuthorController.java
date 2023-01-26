@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/authors")
+@RequestMapping("api/admin/authors")
 @AllArgsConstructor
 public class AuthorController {
     private final AuthorService authorService;
