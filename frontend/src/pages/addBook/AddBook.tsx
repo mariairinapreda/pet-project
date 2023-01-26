@@ -5,19 +5,20 @@ import {infoBookAtom} from "./infoBookAtom";
 import {Book} from "../../types/Book";
 import {PrimitiveAtom, useAtom} from "jotai";
 import axios from "axios";
+import {UserAtom} from "../SignIn/UserAtom";
 
 const formData=new FormData();
 let name="";
 const HandleSendData = (data: PrimitiveAtom<Book>) => {
         axios.create(({
             headers: {
-                "Content-type": "application/json"
+                "Content-type": "application/json",
             }
         }))
         axios.post('http://localhost:8080/api/books', data);
         axios.create(({
             headers: {
-                "Content-type": "multipart/form-data"
+                "Content-type": "multipart/form-data",
             }
         }))
         axios.post(`http://localhost:8080/api/books/file/${name}`, formData);
@@ -27,6 +28,8 @@ const HandleSendData = (data: PrimitiveAtom<Book>) => {
 
 
 const AddBook = () => {
+    const [user, ]= useAtom(UserAtom);
+    console.log(user);
     const [file, setFile] = useState(infoBookAtom);
     return (<Box id={"addBook"} className={""}>
             Add book
