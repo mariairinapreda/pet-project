@@ -2,7 +2,6 @@ package com.codecool.ppt.controller;
 
 import com.codecool.ppt.model.Book;
 import com.codecool.ppt.model.BookTemplate;
-import com.codecool.ppt.model.ContentTemplate;
 import com.codecool.ppt.service.BookService;
 import com.codecool.ppt.service.ContentService;
 import lombok.AllArgsConstructor;
@@ -21,30 +20,34 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/books")
 @AllArgsConstructor
-public class BookController {
-    private final ContentService contentService;
+public class BookControllerUser {
     private final BookService bookService;
 
-
+    private final ContentService contentService;
     @GetMapping
     public List<Book> getAll() {
         return bookService.getAllBooks();
     }
+
+
+   @GetMapping("/{name}")
+    public int getNumberOfPagesForBook(@PathVariable("name") String name){
+        return bookService.getNumberOfPages(name);
+   }
 
     @PostMapping("/file/{name}")
     public void addFile(@RequestParam("file.pdf") MultipartFile multipartFile, @PathVariable("name") String name) throws IOException {
         contentService.addContent(multipartFile, name);
     }
 
+    @GetMapping("/filter/{search}")
+    public List<Book> getBySearch(@PathVariable("search")String search){
+        return bookService.getBooksFromSearch(search);
+    }
     @PostMapping
     public void add(@RequestBody BookTemplate bookTemplate){
-       bookService.insertBook(bookTemplate);
+        bookService.insertBook(bookTemplate);
     }
-
-   @GetMapping("/{name}")
-    public int getNumberOfPagesForBook(@PathVariable("name") String name){
-        return bookService.getNumberOfPages(name);
-   }
 
 
 }
