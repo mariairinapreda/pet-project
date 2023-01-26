@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {ChakraProvider} from "@chakra-ui/react";
 import { extendTheme } from '@chakra-ui/react'
+import {AuthProvider} from "./AuthProvider";
 
 const theme = extendTheme({
     fonts: {
@@ -17,9 +18,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
+      <AuthProvider>
       <ChakraProvider theme={theme}>
     <App />
       </ChakraProvider>
+      </AuthProvider>
   </React.StrictMode>
 );
 
