@@ -6,6 +6,7 @@ import {Book} from "../../types/Book";
 import {PrimitiveAtom, useAtom} from "jotai";
 import axios from "axios";
 import {UserAtom} from "../SignIn/UserAtom";
+import {BASE_URL} from "../../constants/constants";
 
 const formData=new FormData();
 let name="";
@@ -15,13 +16,13 @@ const HandleSendData = (data: PrimitiveAtom<Book>) => {
                 "Content-type": "application/json",
             }
         }))
-        axios.post('http://localhost:8080/api/books', data);
+        axios.post(BASE_URL+'/api/books', data);
         axios.create(({
             headers: {
                 "Content-type": "multipart/form-data",
             }
         }))
-        axios.post(`http://localhost:8080/api/books/file/${name}`, formData);
+        axios.post(BASE_URL+`/api/books/file/${name}`, formData);
 
 }
 
