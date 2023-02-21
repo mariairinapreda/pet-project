@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import {SliderContent} from "./SliderContent";
 import Dots from "./Dots";
 import {Arrows} from "./Arrows";
 import sliderImage from "./SliderImage";
-import {Box, Container} from "@chakra-ui/react";
+import {Box} from "@chakra-ui/react";
 import {ArrowDownIcon} from "@chakra-ui/icons";
 
 const len = sliderImage.length - 1;
@@ -19,8 +19,8 @@ function Slider() {
     }, [activeIndex]);
 
     return (
-        <Box  className="slider-container container"  >
-            <SliderContent activeIndex={activeIndex} sliderImage={sliderImage} />
+        <Box className="slider-container container">
+            <SliderContent activeIndex={activeIndex} sliderImage={sliderImage}/>
             <Arrows
                 prevSlide={() =>
                     setActiveIndex(activeIndex < 1 ? len : activeIndex - 1)
@@ -32,10 +32,12 @@ function Slider() {
             <Dots
                 activeIndex={activeIndex}
                 sliderImage={sliderImage}
-                onclick={(activeIndex) => {setActiveIndex(activeIndex)}}
+                onclick={(activeIndex) => {
+                    setActiveIndex(activeIndex)
+                }}
             />
             <svg className="animate-bounce z-40 w-20 h-20 bg-teal-500 rounded-full">
-                <ArrowDownIcon />
+                <ArrowDownIcon/>
             </svg>
 
 

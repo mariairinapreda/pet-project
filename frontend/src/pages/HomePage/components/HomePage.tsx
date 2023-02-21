@@ -6,19 +6,22 @@ import {CardComponent} from "./CardComponent";
 import "./homepage.css"
 import Slider from "./Carousel";
 import {DataAtom} from "./bookData";
-import {UserAtom} from "../../SignIn/UserAtom";
+import {BASE_URL, bookList} from "../../../constants/constants";
 
 
-const URL = 'http://localhost:8080/api/books';
+const URL = BASE_URL + '/api/books';
 
 export const HomePage = () => {
     const [books, setBooks] = useAtom(DataAtom);
-    axios.get(URL).then(res => setBooks(res.data))
-
-    return(<Box id={"imageContainer"}  >
+    if (bookList.length === 1) {
+        axios.get(URL).then(res => setBooks(res.data))
+    } else {
+        setBooks(bookList);
+    }
+    return (<Box id={"imageContainer"}>
             <Slider/>
-            <CardComponent  props={books}/>
-            </Box>
+            <CardComponent props={books}/>
+        </Box>
     )
 }
 

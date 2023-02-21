@@ -2,7 +2,8 @@
     display: flex;
     margin: 150px 750px 80px 720px;
 }
-#border{
+
+#border {
     border-radius: 12%;
     margin-top: 10px;
     margin-right: 600px;
@@ -15,7 +16,8 @@
     border-width: 3px;
     border-color: teal;
 }
-#forms{
+
+#forms {
     margin-bottom: -10px;
 }
 

@@ -16,22 +16,23 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/admin/reader")
 public class ReaderController {
-private final ReaderService service;
+    private final ReaderService service;
 
 
+    @GetMapping()
+    public List<Reader> getAll() {
+        return service.getAllReaders();
+    }
 
-@GetMapping()
-    public List<Reader> getAll(){
-    return service.getAllReaders();
-}
-@GetMapping("/{id}")
-    public Reader getReaderById(@PathVariable("id")String id){
-    return service.getById(id);
-}
-@PostMapping()
-    public void saveReader(@RequestBody Reader reader){
-    service.addReader(reader);
-}
+    @GetMapping("/{id}")
+    public Reader getReaderById(@PathVariable("id") String id) {
+        return service.getById(id);
+    }
+
+    @PostMapping()
+    public void saveReader(@RequestBody Reader reader) {
+        service.addReader(reader);
+    }
 
 
 }

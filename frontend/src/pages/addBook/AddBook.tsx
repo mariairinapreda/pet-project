@@ -8,28 +8,27 @@ import axios from "axios";
 import {UserAtom} from "../SignIn/UserAtom";
 import {BASE_URL} from "../../constants/constants";
 
-const formData=new FormData();
-let name="";
+const formData = new FormData();
+let name = "";
 const HandleSendData = (data: PrimitiveAtom<Book>) => {
-        axios.create(({
-            headers: {
-                "Content-type": "application/json",
-            }
-        }))
-        axios.post(BASE_URL+'/api/books', data);
-        axios.create(({
-            headers: {
-                "Content-type": "multipart/form-data",
-            }
-        }))
-        axios.post(BASE_URL+`/api/books/file/${name}`, formData);
+    axios.create(({
+        headers: {
+            "Content-type": "application/json",
+        }
+    }))
+    axios.post(BASE_URL + '/api/books', data);
+    axios.create(({
+        headers: {
+            "Content-type": "multipart/form-data",
+        }
+    }))
+    axios.post(BASE_URL + `/api/books/file/${name}`, formData);
 
 }
 
 
-
 const AddBook = () => {
-    const [user, ]= useAtom(UserAtom);
+    const [user,] = useAtom(UserAtom);
     console.log(user);
     const [file, setFile] = useState(infoBookAtom);
     return (<Box id={"addBook"} className={""}>
@@ -37,7 +36,7 @@ const AddBook = () => {
             <FormControl>
                 <Input type='name' name={"name"} className={"text-black"}
                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                           name=event.target.value;
+                           name = event.target.value;
                            setFile(prev => ({...prev, [event.target.name]: event.target.value}));
                        }} focusBorderColor={"none"} placeholder={"title"}/>
                 <FormHelperText>Type the title</FormHelperText>
@@ -54,13 +53,14 @@ const AddBook = () => {
                     setFile(prev => ({...prev, [event.target.name]: event.target.value}));
                 }} className={"text-black"} focusBorderColor={"none"} placeholder={"imageUrl"}/>
                 <FormHelperText>Type the image url</FormHelperText>
-                <Input type='numberOfPages' name={"numberOfPages"} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setFile(prev => ({...prev, [event.target.name]: event.target.value}));
-                }} className={"text-black"} focusBorderColor={"none"} placeholder={"number of pages"}/>
+                <Input type='numberOfPages' name={"numberOfPages"}
+                       onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                           setFile(prev => ({...prev, [event.target.name]: event.target.value}));
+                       }} className={"text-black"} focusBorderColor={"none"} placeholder={"number of pages"}/>
                 <FormHelperText>Type the number of pages</FormHelperText>
                 <Input type='file' name={"text"}
                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                               formData.append("file.pdf", event?.target?.files?.item(0)!);
+                           formData.append("file.pdf", event?.target?.files?.item(0)!);
                        }
                        }
                 />

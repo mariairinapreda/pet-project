@@ -1,19 +1,19 @@
-export type RenderableBook ={
-    name:string,
-    author:string,
+export type RenderableBook = {
+    name: string,
+    author: string,
     description: string,
-    imageUrl:string,
-    text:any,
+    imageUrl: string,
+    text: any,
     numberOfPages: number,
     id: string
 }
 
-export function getEmptyFile(): RenderableBook{
+export function getEmptyFile(): RenderableBook {
     return {
-        name:"",
-        author:"",
+        name: "",
+        author: "",
         description: "",
-        imageUrl:"",
+        imageUrl: "",
         text: null,
         numberOfPages: 0,
         id: ""

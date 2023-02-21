@@ -24,16 +24,16 @@ public class BookControllerUser {
     private final BookService bookService;
 
     private final ContentService contentService;
+
     @GetMapping
     public List<Book> getAll() {
         return bookService.getAllBooks();
     }
 
-
-   @GetMapping("/{name}")
-    public int getNumberOfPagesForBook(@PathVariable("name") String name){
+    @GetMapping("/{name}")
+    public int getNumberOfPagesForBook(@PathVariable("name") String name) {
         return bookService.getNumberOfPages(name);
-   }
+    }
 
     @PostMapping("/file/{name}")
     public void addFile(@RequestParam("file.pdf") MultipartFile multipartFile, @PathVariable("name") String name) throws IOException {
@@ -41,13 +41,14 @@ public class BookControllerUser {
     }
 
     @GetMapping("/filter/{search}")
-    public List<Book> getBySearch(@PathVariable("search")String search){
-        return bookService.getBooksFromSearch(search);
-    }
-    @PostMapping
-    public void add(@RequestBody BookTemplate bookTemplate){
-        bookService.insertBook(bookTemplate);
+    public List<Book> getBySearch(@PathVariable("search") String search) {
+        List<Book> boks = bookService.getBooksFromSearch(search);
+        return boks;
     }
 
+    @PostMapping
+    public void add(@RequestBody BookTemplate bookTemplate) {
+        bookService.insertBook(bookTemplate);
+    }
 
 }

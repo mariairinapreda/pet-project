@@ -27,7 +27,7 @@ const SignIn = () => {
     }, [mail, password])
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         //prevent default is to stop the form from reloading the page
-      e.preventDefault();
+        e.preventDefault();
 
         try {
             const response = await axios.post("/api/auth/authenticate", JSON.stringify({
@@ -46,7 +46,7 @@ const SignIn = () => {
             localStorage.setItem("id", id);
             localStorage.setItem("name", name);
             setUser({name, id, role, token})
-            setUser(prev => ({...prev, "token":token}))
+            setUser(prev => ({...prev, "token": token}))
             setMail("");
             setPassword("");
             setSuccess(true);
@@ -102,11 +102,12 @@ const SignIn = () => {
 
                         <ButtonGroup>
                             <Button type={"submit"}
-                                    // onClick={() => window.location.href = '/'}
+                                // onClick={() => window.location.href = '/'}
                                     style={{backgroundColor: "lightgreen"}}>Cancel</Button>
                             <Button type={"submit"} onClick={(e) => {
                                 e.preventDefault();
-                                handleSubmit(e)}}
+                                handleSubmit(e)
+                            }}
                                     style={{backgroundColor: "lightgreen"}}>Submit</Button>
                         </ButtonGroup>
                     </div>

@@ -11,23 +11,23 @@ import java.util.Optional;
 @AllArgsConstructor
 @Service
 public class ReaderService {
-private final ReaderRepository repository;
+    private final ReaderRepository repository;
 
-public Optional<Reader> getByMail(String email){
-    return repository.findByEmail(email);
-}
-public void addReader(Reader reader)
-{
-    repository.save(reader);
-}
+    public Optional<Reader> getByMail(String email) {
+        return repository.findByEmail(email);
+    }
 
-public List<Reader> getAllReaders(){
-    return repository.findAll();
-}
-public Reader getById(String id){
-    return repository.findById(id).get();
-}
+    public void addReader(Reader reader) {
+        repository.save(reader);
+    }
 
+    public List<Reader> getAllReaders() {
+        return repository.findAll();
+    }
+
+    public Reader getById(String id) {
+        return repository.findById(id).get();
+    }
 
 
 }

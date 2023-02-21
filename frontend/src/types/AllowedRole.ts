@@ -1,4 +1,4 @@
-export type AllowedRole ={
+export type AllowedRole = {
     allowedRole: string
 }
 

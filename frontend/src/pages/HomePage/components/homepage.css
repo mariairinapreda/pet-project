@@ -33,9 +33,10 @@
 .slide-image {
     position: relative;
     object-fit: fill;
-    border: 5px solid rgba(0,0,0, 0.1) ;
+    border: 5px solid rgba(0, 0, 0, 0.1);
 }
-#imageContainer{
+
+#imageContainer {
     margin-left: 15rem;
     margin-right: 15rem;
 }
@@ -72,7 +73,7 @@
     border-radius: 0px 5px 5px 0px;
 }
 
-.slider-container:hover .prev,.slider-container:hover .next {
+.slider-container:hover .prev, .slider-container:hover .next {
     color: black
 }
 
@@ -87,18 +88,22 @@
     right: 170px;
     border-radius: 5px 0px 0px 5px;
 }
-.prev{
+
+.prev {
     left: 170px;
 }
+
 .all-dots {
     position: relative;
     width: 100%;
     margin-top: -50px;
     margin-left: 400px;
 }
-Link{
+
+Link {
     text-decoration-line: none;
 }
+
 .dot {
     cursor: pointer;
     height: 1.5rem;
@@ -117,13 +122,15 @@ Link{
   background-color: rgba(255, 255, 255, 0.5);
 } */
 
-.slider-container:hover .dot{
+.slider-container:hover .dot {
     background-color: rgba(0, 0, 0, 0.3);
 }
-.slider-container:hover .active-dot{
+
+.slider-container:hover .active-dot {
     background-color: rgba(255, 255, 255, 0.5);
 }
-.arrows{
+
+.arrows {
     margin-top: 0px;
     z-index: 200;
 }

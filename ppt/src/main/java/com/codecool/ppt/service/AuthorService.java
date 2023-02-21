@@ -3,7 +3,6 @@ package com.codecool.ppt.service;
 import com.codecool.ppt.model.Author;
 import com.codecool.ppt.repository.AuthorRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

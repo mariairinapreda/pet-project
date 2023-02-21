@@ -1,12 +1,12 @@
 import React, {FC} from "react";
 
 interface Values {
-    activeIndex : number,
-    onclick : (index: number)=>void,
-    sliderImage : {}[]
+    activeIndex: number,
+    onclick: (index: number) => void,
+    sliderImage: {}[]
 }
 
-export const Dots : FC<Values> = ( {  activeIndex , onclick, sliderImage }) => {
+export const Dots: FC<Values> = ({activeIndex, onclick, sliderImage}) => {
     return (
         <div className="all-dots">
             {sliderImage.map((slide, index) => (

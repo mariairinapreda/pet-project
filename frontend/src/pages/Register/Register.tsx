@@ -2,17 +2,14 @@ import React, {useEffect, useRef, useState} from 'react';
 import {Box, Button, ButtonGroup, FormControl, FormHelperText, Input, Link} from "@chakra-ui/react";
 import "./Register.css"
 import axios from "../../api/Axios"
-import {faCheck, faInfoCircle, faTimes} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useNavigate} from "react-router-dom";
-//it will start with a lower or uppercase letter, it can be followed by 3->23 char that can be letters or numbers, -,_
-const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
-//it has to contain a lowercase, a uppercase, a number, or symbol, between 8-24 length
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const EMAIL_REGEX = /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/;
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+
+import {EMAIL_REGEX, PWD_REGEX, USER_REGEX} from "../../constants/constants";
+
 
 const Register = () => {
-    const navigate= useNavigate();
+    const navigate = useNavigate();
     const errRef = useRef();
 
     const [lastname, setLastname] = useState("");
@@ -103,10 +100,10 @@ const Register = () => {
                         <FormControl id={"forms"} className={"mb-8"}>
                             <FormHelperText>Type your first name
                                 <span className={validFirstName ? "valid" : "hide"}>
-                                <FontAwesomeIcon icon={faCheck}/>
+                                <FontAwesomeIcon icon="check"/>
                         </span>
                                 <span className={validFirstName || !firstname ? "hide" : "invalid"}>
-                                <FontAwesomeIcon icon={faTimes}/>
+                                <FontAwesomeIcon icon="times"/>
                         </span>
                             </FormHelperText>
                             <p ref={() => errRef} className={errMessage ? "errmsg" : "offscreen"}
@@ -123,17 +120,17 @@ const Register = () => {
                                    focusBorderColor={"none"} placeholder={"name"}/>
                             <p id={"uidnote"}
                                className={userFirstnameFocus && firstname && !validFirstName ? "instructions" : "offscreen"}>
-                                <FontAwesomeIcon icon={faInfoCircle}/>
+                                <FontAwesomeIcon icon="info-circle"/>
                                 4 to 24 characters <br/>
                                 Must begin with a letter <br/>
                                 Letters, numbers, underscores, hyphens allowed <br/>
                             </p>
                             <FormHelperText>Type your last name
                                 <span className={validUserLastname ? "valid" : "hide"}>
-<FontAwesomeIcon icon={faCheck}/>
+<FontAwesomeIcon icon="check"/>
                         </span>
                                 <span className={validUserLastname || !lastname ? "hide" : "invalid"}>
-<FontAwesomeIcon icon={faTimes}/>
+<FontAwesomeIcon icon="times"/>
                         </span>
                             </FormHelperText>
                             <p ref={() => errRef} className={errMessage ? "errmsg" : "offscreen"}
@@ -150,17 +147,18 @@ const Register = () => {
                                    focusBorderColor={"none"} placeholder={"name"}/>
                             <p id={"lastnamenote"}
                                className={userLastnameFocus && lastname && !validUserLastname ? "instructions" : "offscreen"}>
-                                <FontAwesomeIcon icon={faInfoCircle}/>
+                                <FontAwesomeIcon icon="info-circle"/>
                                 4 to 24 characters <br/>
                                 Must begin with a letter <br/>
                                 Letters, numbers, underscores, hyphens allowed <br/>
                             </p>
                             <FormHelperText>Type your mail
                                 <span className={validEmail ? "valid" : "hide"}>
-<FontAwesomeIcon icon={faCheck}/>
+<FontAwesomeIcon icon="check"/>
                         </span>
                                 <span className={validEmail || !email ? "hide" : "invalid"}>
-                                <FontAwesomeIcon icon={faTimes}/></span></FormHelperText>
+                                <FontAwesomeIcon icon="times"/>
+                                </span></FormHelperText>
                             <Input type='mail' onChange={(e) => {
                                 setEmail(e.target.value)
                             }} required aria-invalid={validEmail ? "false" : "true"} onBlur={() => {
@@ -169,15 +167,15 @@ const Register = () => {
                                    className={"text-black"} focusBorderColor={"none"} placeholder={"mail"}/>
                             <p id={"emailnote"}
                                className={emailFocus && email && !validEmail ? "instructions" : "offscreen"}>
-                                <FontAwesomeIcon icon={faInfoCircle}/>
+                                <FontAwesomeIcon icon="info-circle"/>
                                 The email must contain @ <br/>
                             </p>
                             <FormHelperText>Type the password
                                 <span className={validPwd ? "valid" : "hide"}>
-<FontAwesomeIcon icon={faCheck}/>
+<FontAwesomeIcon icon="check"/>
                         </span>
                                 <span className={validPwd || !password ? "hide" : "invalid"}>
-                                <FontAwesomeIcon icon={faTimes}/>
+                                <FontAwesomeIcon icon="times"/>
                             </span>
                             </FormHelperText>
                             <Input type='password' onChange={(e) => {
@@ -188,17 +186,18 @@ const Register = () => {
                                    focusBorderColor={"none"} placeholder={"password"}/>
                             <p id={"pwdnote"}
                                className={pwdFocus && password && !validPwd ? "instructions" : "offscreen"}>
-                                <FontAwesomeIcon icon={faInfoCircle}/>
+                                <FontAwesomeIcon icon="info-circle"/>
                                 8 to 24 characters <br/>
                                 Must contain a lowercase letter, an uppercase letter, a number and a special
                                 character <br/>
                             </p>
                             <FormHelperText>Confirm password
                                 <span className={matchValidPwd && matchPwd ? "valid" : "hide"}>
-<FontAwesomeIcon icon={faCheck}/>
+<FontAwesomeIcon icon="check"/>
                         </span>
                                 <span className={matchValidPwd || !matchPwd ? "hide" : "invalid"}>
-                                <FontAwesomeIcon icon={faTimes}/></span></FormHelperText>
+                                <FontAwesomeIcon icon="times"/>
+                                </span></FormHelperText>
                             <Input type='password' onChange={(e) => {
                                 setMatchPwd(e.target.value)
                             }} required aria-invalid={matchValidPwd ? "false" : "true"} onBlur={() => {
@@ -207,7 +206,7 @@ const Register = () => {
                                    className={"text-black"} focusBorderColor={"none"} placeholder={"confirm_password"}/>
                             <p id={"pwdmatchnote"}
                                className={matchPwdFocus && matchPwd && !matchValidPwd ? "instructions" : "offscreen"}>
-                                <FontAwesomeIcon icon={faInfoCircle}/>
+                                <FontAwesomeIcon icon="info-circle"/>
                                 Must be the same as first password typed above <br/>
                             </p>
                         </FormControl>

@@ -1,6 +1,6 @@
 import React from 'react';
 
- export   const AuthorCard= ()=> {
+export const AuthorCard = () => {
     return (
         <div></div>
     );

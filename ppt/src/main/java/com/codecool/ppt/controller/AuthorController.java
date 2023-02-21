@@ -17,7 +17,6 @@ import java.util.List;
 public class AuthorController {
     private final AuthorService authorService;
 
-
     @GetMapping
     public List<Author> getAll() {
         return authorService.getAllAuthors();
@@ -27,6 +26,5 @@ public class AuthorController {
     public void add(@RequestBody Author author) {
         authorService.addAuthor(author);
     }
-
 
 }

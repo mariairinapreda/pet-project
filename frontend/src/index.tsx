@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {ChakraProvider} from "@chakra-ui/react";
-import { extendTheme } from '@chakra-ui/react'
+import {ChakraProvider, extendTheme} from "@chakra-ui/react";
 import {AuthProvider} from "./AuthProvider";
 
 const theme = extendTheme({
@@ -13,17 +12,18 @@ const theme = extendTheme({
         body: `'Lobster', sans-serif`,
     },
 })
+
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-      <AuthProvider>
-      <ChakraProvider theme={theme}>
-    <App />
-      </ChakraProvider>
-      </AuthProvider>
-  </React.StrictMode>
+    <React.StrictMode>
+        <AuthProvider>
+            <ChakraProvider theme={theme}>
+                <App/>
+            </ChakraProvider>
+        </AuthProvider>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

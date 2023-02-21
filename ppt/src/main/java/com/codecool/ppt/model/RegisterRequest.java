@@ -14,9 +14,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterRequest {
-private String firstname;
-private String lastname;
-private String email;
-private String password;
+    private String firstname;
+    private String lastname;
+    private String email;
+    private String password;
 
 }

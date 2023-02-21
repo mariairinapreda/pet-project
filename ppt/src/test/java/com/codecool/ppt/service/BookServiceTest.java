@@ -2,7 +2,6 @@ package com.codecool.ppt.service;
 
 import com.codecool.ppt.model.Author;
 import com.codecool.ppt.model.Book;
-import com.codecool.ppt.repository.AuthorRepository;
 import com.codecool.ppt.repository.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -11,13 +10,12 @@ import org.mockito.Mockito;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
-
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 
 
 public class BookServiceTest {
@@ -110,6 +108,5 @@ public class BookServiceTest {
     public void shouldThrowIllegalArgumentExceptionAtBookAdd() {
         assertThrows(IllegalArgumentException.class, () -> bookService.addBook(null));
     }
-
 
 }
