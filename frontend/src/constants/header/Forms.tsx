@@ -9,11 +9,7 @@ const Forms = () => {
     const [search, setSearch] = useState(getEmptySearch);
     let [input, setInput] = useState([]);
     if (search.input !== "") {
-        axios.get(BASE_URL + `/api/books/filter/${search.input}`, {
-            headers: {
-                "Access-Control-Allow-Origin": BASE_URL + `/api/books/filter/${search.input}`
-            }
-        }).then(res => {
+        axios.get(BASE_URL + `/api/books/filter/${search.input}`).then(res => {
             setInput(res.data)
             for (const renderableBook of bookList) {
                 bookList.pop();
