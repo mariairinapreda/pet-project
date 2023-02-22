@@ -16,6 +16,9 @@ export const Header = () => {
         <p className={"text-[30px] text-white "}>{user !== null ? user + "😎" : ""}</p>
         <Forms/>
         <div className={"space-x-5 mr-5 text-white\t "}>
+            {localStorage.getItem("role")==="ADMIN"  ? (
+                <Link className={"text-[30px] md:my-0"} textDecoration={"initial"} href={"/books/add"}>Add Books</Link>
+            ) : null}
             <Link className={"text-[30px] md:my-0"} textDecoration={"initial"} href={"/register"}>Register</Link>
             <Link className={"text-[30px] md:my-0"} textDecoration={"initial"} href={"/signin"}>Sign in</Link>
             {user !== null ? (
