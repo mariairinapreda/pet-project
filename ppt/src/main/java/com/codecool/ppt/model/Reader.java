@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -30,8 +29,8 @@ public class Reader implements UserDetails {
     private Role role;
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+    public Collection<? extends SimpleGrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(String.format("ROLE_%s",role)));
     }
 
     @Override
