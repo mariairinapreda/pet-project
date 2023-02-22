@@ -1,5 +1,6 @@
 package com.codecool.ppt.config;
 
+import com.codecool.ppt.model.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,11 +23,15 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
+                .cors()
+                .and()
                 .httpBasic().disable()
                 .authorizeHttpRequests()
-//                .antMatchers("/api/admin/**").hasRole("ADMIN")
-//                .antMatchers("/api/user/**").hasRole("USER")
-//                .antMatchers("/api/auth/**", "/**").permitAll()
+                .antMatchers("/api/admin/**").hasRole("ADMIN")
+                .antMatchers("/api/books").permitAll()
+                .antMatchers("/api/books/filter/**").permitAll()
+                .antMatchers("/api/books/**").hasRole(String.valueOf(Role.USER))
+                .antMatchers("/api/content/**").hasRole("USER")
                 .antMatchers("/**").permitAll()
                 .anyRequest()
                 .authenticated()
