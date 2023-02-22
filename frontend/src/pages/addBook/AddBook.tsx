@@ -3,33 +3,42 @@ import {Box, Button, FormControl, FormHelperText, Input} from "@chakra-ui/react"
 import "./addBook.css"
 import {infoBookAtom} from "./infoBookAtom";
 import {Book} from "../../types/Book";
-import {PrimitiveAtom, useAtom} from "jotai";
+import {PrimitiveAtom} from "jotai";
 import axios from "axios";
-import {UserAtom} from "../SignIn/UserAtom";
 import {BASE_URL} from "../../constants/constants";
+import {NavigateFunction, useNavigate} from "react-router-dom";
 
 const formData = new FormData();
-let name = "";
-const HandleSendData = (data: PrimitiveAtom<Book>) => {
-    axios.create(({
-        headers: {
-            "Content-type": "application/json",
-        }
-    }))
-    axios.post(BASE_URL + '/api/books', data);
-    axios.create(({
-        headers: {
-            "Content-type": "multipart/form-data",
-        }
-    }))
-    axios.post(BASE_URL + `/api/books/file/${name}`, formData);
 
+
+let name = "";
+const HandleSendData = (data: PrimitiveAtom<Book>, navigate: NavigateFunction) => {
+
+    axios.post(BASE_URL + '/api/admin/books', data, {
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`,
+
+        }
+    }).catch((error) => {
+        if (error.response.status === 403) {
+            navigate("/forbidden")
+        }
+    });
+
+    axios.post(BASE_URL + `/api/admin/books/file/${name}`, formData, {
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`,
+        }
+    }).catch((error) => {
+        if (error.response.status === 403) {
+            navigate("/forbidden")
+        }
+    });
 }
 
 
 const AddBook = () => {
-    const [user,] = useAtom(UserAtom);
-    console.log(user);
+    const navigate = useNavigate();
     const [file, setFile] = useState(infoBookAtom);
     return (<Box id={"addBook"} className={""}>
             Add book
@@ -65,8 +74,10 @@ const AddBook = () => {
                        }
                 />
                 <FormHelperText fontFamily={"Lobster"}>Add a book </FormHelperText>
-                <Button type={"submit"} onClick={() => HandleSendData(file)}
+                <Button type={"submit"} onClick={() => HandleSendData(file, navigate)}
                         style={{backgroundColor: "lightgreen"}}>Add</Button>
+                <Button type={"submit"} onClick={() => navigate("/")}
+                        style={{backgroundColor: "lightgreen"}}>Home</Button>
             </FormControl>
         </Box>
     )
