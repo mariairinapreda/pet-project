@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-
+@SuppressWarnings("deprecation")
 @Service
 public class JwtService {
     private static final String SECRET_KEY = "66546A576D5A7134743777217A25432A462D4A614E645267556B587032723575";
@@ -23,10 +23,9 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder()
+        return Jwts.parser()
                 .setSigningKey(getSignInKey())
-                .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
     }
 
@@ -35,7 +34,7 @@ public class JwtService {
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 6 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() +(long) 30*24*60*60*1000) )
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
