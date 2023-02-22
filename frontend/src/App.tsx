@@ -10,6 +10,7 @@ import {Books} from "./pages/Books/Books";
 import AddBook from "./pages/addBook/AddBook";
 import ReadBookPage from "./pages/readBook/ReadBookPage";
 import RequiredAuth from "./pages/RequiredAuth";
+import Forbidden from "./pages/Forbidden";
 
 class App extends React.Component {
 
@@ -37,6 +38,8 @@ class App extends React.Component {
                         <Route path={"/books/add"} element={<AddBook/>}/>
                         <Route path={"/authors/add"}/>
                     </Route>
+                {/* Route for redirect   */}
+                    <Route path={"/forbidden"} element={<Forbidden/>}/>
                 </Routes>
                 <Footer/>
             </Router>
