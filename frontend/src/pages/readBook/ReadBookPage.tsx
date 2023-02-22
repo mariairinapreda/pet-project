@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useAtom} from "jotai";
 import axios from "axios";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {infoContentAtom} from "../addBook/infoContentAtom";
 import {Document, Page} from "react-pdf/dist/esm/entry.webpack"
 import "./ReadBook.css"
@@ -9,11 +9,23 @@ import {BASE_URL} from "../../constants/constants";
 
 
 const ReadBookPage = () => {
+    const navigate = useNavigate();
     let {name} = useParams<{ name: string }>();
     const [book, setBook] = useAtom(infoContentAtom);
     const [numberOfPages, setNumberOfPages] = useState<number>(0);
-    axios.get(BASE_URL + `/api/content/${name}`).then(res => setBook(res.data))
-    axios.get(BASE_URL + `/api/books/${name}`).then(res => setNumberOfPages(res.data))
+    axios.get(BASE_URL + `/api/content/${name}`, {
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`}
+    }).then(res =>{
+        setBook(res.data)}).catch((error)=>{
+        if (error.response.status === 403) {
+            navigate("/")
+        }
+    });
+    axios.get(BASE_URL + `/api/books/${name}`, {
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`}
+    }).then(res => setNumberOfPages(res.data))
     const [numPage, setNumPages] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState(1);
 
